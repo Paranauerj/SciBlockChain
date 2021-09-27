@@ -1,11 +1,11 @@
 accounts:
-  - name: alice
-    coins: ["20000token", "200000000stake"]
+  - name: paranaue
+    coins: ["20000000000cto"]
   - name: bob
-    coins: ["10000token", "100000000stake"]
+    coins: ["100000000cto"]
 validator:
-  name: alice
-  staked: "100000000stake"
+  name: paranaue
+  staked: "100000000cto"
 client:
   vuex:
     path: "vue/src/store"
@@ -13,4 +13,24 @@ client:
     path: "docs/static/openapi.yml"
 faucet:
   name: bob
-  coins: ["5token", "100000stake"]
+  coins: ["20cto"]
+
+genesis:
+  app_state:
+    staking:
+      params:
+        bond_denom: "cto"
+
+    crisis:
+      constant_fee:
+        amount: "1000"
+        denom: "cto"
+
+    gov:
+      deposit_params:
+        min_deposit:
+          - amount: "1000000"
+            denom: "cto"
+    mint:
+      params:
+        mint_denom: "cto"

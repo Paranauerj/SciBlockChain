@@ -2,12 +2,75 @@ syntax = "proto3";
 package paranauerj.scichain.scichain;
 
 // this line is used by starport scaffolding # proto/tx/import
+import "scichain/profile.proto";
+import "scichain/article.proto";
 
 option go_package = "github.com/paranauerj/SciChain/x/scichain/types";
 
 // Msg defines the Msg service.
 service Msg {
     // this line is used by starport scaffolding # proto/tx/rpc
+  rpc CreateProfile(MsgCreateProfile) returns (MsgCreateProfileResponse);
+  rpc UpdateProfile(MsgUpdateProfile) returns (MsgUpdateProfileResponse);
+  rpc DeleteProfile(MsgDeleteProfile) returns (MsgDeleteProfileResponse);
+  rpc CreateArticle(MsgCreateArticle) returns (MsgCreateArticleResponse);
+  rpc UpdateArticle(MsgUpdateArticle) returns (MsgUpdateArticleResponse);
+  rpc DeleteArticle(MsgDeleteArticle) returns (MsgDeleteArticleResponse);
 }
 
 // this line is used by starport scaffolding # proto/tx/message
+message MsgCreateProfile {
+  string creator = 1;
+  string name = 2;
+  string university = 3;
+  string link = 4;
+  string about = 5;
+}
+
+message MsgCreateProfileResponse {
+  uint64 id = 1;
+}
+
+message MsgUpdateProfile {
+  string creator = 1;
+  uint64 id = 2;
+  string name = 3;
+  string university = 4;
+  string link = 5;
+  string about = 6;
+}
+
+message MsgUpdateProfileResponse { }
+
+message MsgDeleteProfile {
+  string creator = 1;
+  uint64 id = 2;
+}
+
+message MsgDeleteProfileResponse { }
+
+message MsgCreateArticle {
+  string creator = 1;
+  string title = 2;
+  string ipfs = 3;
+}
+
+message MsgCreateArticleResponse {
+  uint64 id = 1;
+}
+
+message MsgUpdateArticle {
+  string creator = 1;
+  uint64 id = 2;
+  string title = 3;
+  string ipfs = 4;
+}
+
+message MsgUpdateArticleResponse { }
+
+message MsgDeleteArticle {
+  string creator = 1;
+  uint64 id = 2;
+}
+
+message MsgDeleteArticleResponse { }

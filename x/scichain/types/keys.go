@@ -24,3 +24,13 @@ const (
 func KeyPrefix(p string) []byte {
 	return []byte(p)
 }
+
+const (
+	ArticleKey      = "Article-value-"
+	ArticleCountKey = "Article-count-"
+)
+
+const (
+	ProfileKey      = "Profile-value-"
+	ProfileCountKey = "Profile-count-"
+)

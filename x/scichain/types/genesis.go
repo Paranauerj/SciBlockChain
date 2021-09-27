@@ -1,8 +1,8 @@
 package types
 
 import (
-// this line is used by starport scaffolding # genesis/types/import
-// this line is used by starport scaffolding # ibc/genesistype/import
+	"fmt"
+	// this line is used by starport scaffolding # ibc/genesistype/import
 )
 
 // DefaultIndex is the default capability global index
@@ -13,6 +13,8 @@ func DefaultGenesis() *GenesisState {
 	return &GenesisState{
 		// this line is used by starport scaffolding # ibc/genesistype/default
 		// this line is used by starport scaffolding # genesis/types/default
+		ProfileList: []*Profile{},
+		ArticleList: []*Article{},
 	}
 }
 
@@ -22,6 +24,24 @@ func (gs GenesisState) Validate() error {
 	// this line is used by starport scaffolding # ibc/genesistype/validate
 
 	// this line is used by starport scaffolding # genesis/types/validate
+	// Check for duplicated ID in profile
+	profileIdMap := make(map[uint64]bool)
+
+	for _, elem := range gs.ProfileList {
+		if _, ok := profileIdMap[elem.Id]; ok {
+			return fmt.Errorf("duplicated id for profile")
+		}
+		profileIdMap[elem.Id] = true
+	}
+	// Check for duplicated ID in article
+	articleIdMap := make(map[uint64]bool)
+
+	for _, elem := range gs.ArticleList {
+		if _, ok := articleIdMap[elem.Id]; ok {
+			return fmt.Errorf("duplicated id for article")
+		}
+		articleIdMap[elem.Id] = true
+	}
 
 	return nil
 }

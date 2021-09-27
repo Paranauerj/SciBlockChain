@@ -4,12 +4,68 @@ package paranauerj.scichain.scichain;
 import "google/api/annotations.proto";
 import "cosmos/base/query/v1beta1/pagination.proto";
 // this line is used by starport scaffolding # 1
+import "scichain/profile.proto";
+import "scichain/article.proto";
 
 option go_package = "github.com/paranauerj/SciChain/x/scichain/types";
 
 // Query defines the gRPC querier service.
 service Query {
     // this line is used by starport scaffolding # 2
+
+	// Queries a profile by id.
+	rpc Profile(QueryGetProfileRequest) returns (QueryGetProfileResponse) {
+		option (google.api.http).get = "/paranauerj/scichain/scichain/profile/{id}";
+	}
+
+	// Queries a list of profile items.
+	rpc ProfileAll(QueryAllProfileRequest) returns (QueryAllProfileResponse) {
+		option (google.api.http).get = "/paranauerj/scichain/scichain/profile";
+	}
+
+
+	// Queries a article by id.
+	rpc Article(QueryGetArticleRequest) returns (QueryGetArticleResponse) {
+		option (google.api.http).get = "/paranauerj/scichain/scichain/article/{id}";
+	}
+
+	// Queries a list of article items.
+	rpc ArticleAll(QueryAllArticleRequest) returns (QueryAllArticleResponse) {
+		option (google.api.http).get = "/paranauerj/scichain/scichain/article";
+	}
+
 }
 
 // this line is used by starport scaffolding # 3
+message QueryGetProfileRequest {
+	uint64 id = 1;
+}
+
+message QueryGetProfileResponse {
+	Profile Profile = 1;
+}
+
+message QueryAllProfileRequest {
+	cosmos.base.query.v1beta1.PageRequest pagination = 1;
+}
+
+message QueryAllProfileResponse {
+	repeated Profile Profile = 1;
+	cosmos.base.query.v1beta1.PageResponse pagination = 2;
+}
+message QueryGetArticleRequest {
+	uint64 id = 1;
+}
+
+message QueryGetArticleResponse {
+	Article Article = 1;
+}
+
+message QueryAllArticleRequest {
+	cosmos.base.query.v1beta1.PageRequest pagination = 1;
+}
+
+message QueryAllArticleResponse {
+	repeated Article Article = 1;
+	cosmos.base.query.v1beta1.PageResponse pagination = 2;
+}

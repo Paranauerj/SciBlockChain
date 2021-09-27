@@ -1,0 +1,13 @@
+syntax = "proto3";
+package paranauerj.scichain.scichain;
+
+option go_package = "github.com/paranauerj/SciChain/x/scichain/types";
+
+import "gogoproto/gogo.proto";
+
+message Article {
+  string creator = 1;
+  uint64 id = 2;
+  string title = 3; 
+  string ipfs = 4; 
+}

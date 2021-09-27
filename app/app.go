@@ -83,6 +83,7 @@ import (
 	"github.com/paranauerj/SciChain/docs"
 	tmjson "github.com/tendermint/tendermint/libs/json"
 	tmproto "github.com/tendermint/tendermint/proto/tendermint/types"
+
 	// this line is used by starport scaffolding # stargate/app/moduleImport
 	scichainmodule "github.com/paranauerj/SciChain/x/scichain"
 	scichainmodulekeeper "github.com/paranauerj/SciChain/x/scichain/keeper"
@@ -92,7 +93,7 @@ import (
 )
 
 const (
-	AccountAddressPrefix = "sci"
+	AccountAddressPrefix = "cosmos"
 	Name                 = "SciChain"
 )
 
@@ -342,6 +343,7 @@ func New(
 		appCodec,
 		keys[scichainmoduletypes.StoreKey],
 		keys[scichainmoduletypes.MemStoreKey],
+		app.BankKeeper,
 	)
 	scichainModule := scichainmodule.NewAppModule(appCodec, app.ScichainKeeper)
 

@@ -40,6 +40,9 @@ export default {
 	async created() {
 		await this.$store.dispatch('common/env/init')
 		this.initialized = true
+		await this.$store.dispatch("paranauerj.scichain.scichain/QueryArticleAll",{options:{subscribe:true, all:true},params:{}})
+		await this.$store.dispatch("paranauerj.scichain.scichain/QueryProfileAll",{options:{subscribe:true, all:true},params:{}})
+
 	},
 	errorCaptured(err) {
 		console.log(err)
