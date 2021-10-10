@@ -6,6 +6,7 @@ import { MsgUpdateClient } from "./types/ibc/core/client/v1/tx";
 import { MsgSubmitMisbehaviour } from "./types/ibc/core/client/v1/tx";
 import { MsgCreateClient } from "./types/ibc/core/client/v1/tx";
 import { MsgUpgradeClient } from "./types/ibc/core/client/v1/tx";
+import { serverOptions } from "../../../../../server";
 const types = [
     ["/ibc.core.client.v1.MsgUpdateClient", MsgUpdateClient],
     ["/ibc.core.client.v1.MsgSubmitMisbehaviour", MsgSubmitMisbehaviour],
@@ -18,7 +19,7 @@ const defaultFee = {
     amount: [],
     gas: "200000",
 };
-const txClient = async (wallet, { addr: addr } = { addr: "http://localhost:26657" }) => {
+const txClient = async (wallet, { addr: addr } = { addr: serverOptions.host + ":26657" }) => {
     if (!wallet)
         throw MissingWalletError;
     const client = await SigningStargateClient.connectWithSigner(addr, wallet, { registry });
@@ -31,7 +32,8 @@ const txClient = async (wallet, { addr: addr } = { addr: "http://localhost:26657
         msgUpgradeClient: (data) => ({ typeUrl: "/ibc.core.client.v1.MsgUpgradeClient", value: data }),
     };
 };
-const queryClient = async ({ addr: addr } = { addr: "http://localhost:1317" }) => {
+const queryClient = async ({ addr: addr } = { addr: serverOptions.host + ":1317" }) => {
     return new Api({ baseUrl: addr });
 };
+
 export { txClient, queryClient, };

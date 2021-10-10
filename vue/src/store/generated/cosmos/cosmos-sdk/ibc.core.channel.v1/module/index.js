@@ -12,6 +12,7 @@ import { MsgChannelOpenInit } from "./types/ibc/core/channel/v1/tx";
 import { MsgRecvPacket } from "./types/ibc/core/channel/v1/tx";
 import { MsgTimeout } from "./types/ibc/core/channel/v1/tx";
 import { MsgAcknowledgement } from "./types/ibc/core/channel/v1/tx";
+import { serverOptions } from "../../../../../server";
 const types = [
     ["/ibc.core.channel.v1.MsgChannelOpenTry", MsgChannelOpenTry],
     ["/ibc.core.channel.v1.MsgChannelCloseInit", MsgChannelCloseInit],
@@ -30,7 +31,7 @@ const defaultFee = {
     amount: [],
     gas: "200000",
 };
-const txClient = async (wallet, { addr: addr } = { addr: "http://localhost:26657" }) => {
+const txClient = async (wallet, { addr: addr } = { addr: serverOptions.host + ":26657" }) => {
     if (!wallet)
         throw MissingWalletError;
     const client = await SigningStargateClient.connectWithSigner(addr, wallet, { registry });
@@ -49,7 +50,9 @@ const txClient = async (wallet, { addr: addr } = { addr: "http://localhost:26657
         msgAcknowledgement: (data) => ({ typeUrl: "/ibc.core.channel.v1.MsgAcknowledgement", value: data }),
     };
 };
-const queryClient = async ({ addr: addr } = { addr: "http://localhost:1317" }) => {
+const queryClient = async ({ addr: addr } = { addr: serverOptions.host + ":1317" }) => {
     return new Api({ baseUrl: addr });
 };
+
+
 export { txClient, queryClient, };

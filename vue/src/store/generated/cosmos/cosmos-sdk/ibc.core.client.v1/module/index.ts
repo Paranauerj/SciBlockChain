@@ -8,6 +8,7 @@ import { MsgUpdateClient } from "./types/ibc/core/client/v1/tx";
 import { MsgSubmitMisbehaviour } from "./types/ibc/core/client/v1/tx";
 import { MsgCreateClient } from "./types/ibc/core/client/v1/tx";
 import { MsgUpgradeClient } from "./types/ibc/core/client/v1/tx";
+import { serverOptions } from "../../../../../server";
 
 
 const types = [
@@ -35,7 +36,7 @@ interface SignAndBroadcastOptions {
   memo?: string
 }
 
-const txClient = async (wallet: OfflineSigner, { addr: addr }: TxClientOptions = { addr: "http://localhost:26657" }) => {
+const txClient = async (wallet: OfflineSigner, { addr: addr }: TxClientOptions = { addr: serverOptions.host + ":26657" }) => {
   if (!wallet) throw MissingWalletError;
 
   const client = await SigningStargateClient.connectWithSigner(addr, wallet, { registry });
@@ -55,7 +56,7 @@ interface QueryClientOptions {
   addr: string
 }
 
-const queryClient = async ({ addr: addr }: QueryClientOptions = { addr: "http://localhost:1317" }) => {
+const queryClient = async ({ addr: addr }: QueryClientOptions = { addr: serverOptions.host + ":1317" }) => {
   return new Api({ baseUrl: addr });
 };
 
